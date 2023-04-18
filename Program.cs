@@ -12,4 +12,4 @@ while (!sr.EndOfStream)
     else continue;
     
 }
-sw.Write(sb);
+sw.Write(sb.ToString().TrimEnd(';'));
