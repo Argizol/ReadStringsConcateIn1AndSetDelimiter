@@ -3,4 +3,4 @@ using System.Text;
 
 
 ReadExcel.GetDataFromExcel();
-SetSeparator.SetSeparatorForDataFromTxt();
+//SetSeparator.SetSeparatorForDataFromTxt();

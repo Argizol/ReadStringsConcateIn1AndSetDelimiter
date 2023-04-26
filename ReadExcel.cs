@@ -10,7 +10,7 @@ namespace ReadAllLinesConcatInOneStringAndSetDelimiter
     internal class ReadExcel
     {
         public static void GetDataFromExcel()
-        {           
+        {
 
             string path = @"D:/Загрузки работа/";
 
@@ -18,8 +18,10 @@ namespace ReadAllLinesConcatInOneStringAndSetDelimiter
 
             path = Path.Combine(path, Console.ReadLine()!);
 
-            using StreamWriter sw = new StreamWriter(@"D:/Загрузки работа/data/Текстовый документ.txt");
+            using StreamWriter sw = new StreamWriter(@"D:/Загрузки работа/data/result.txt");
+            StringBuilder sb = new StringBuilder();
             FileInfo file = new FileInfo(path);
+
             using (ExcelPackage package = new ExcelPackage(file))
             {
                 ExcelWorksheet worksheet = package.Workbook.Worksheets.FirstOrDefault();
@@ -27,17 +29,21 @@ namespace ReadAllLinesConcatInOneStringAndSetDelimiter
 
                 for (int i = 2; i < limiter; i++)
                 {
+                    //Получаем значения, если для числового значения null меняем на 0
                     var PC = worksheet.Cells[$"AV{i}"].Value is not null ? worksheet.Cells[$"AV{i}"].Value : 0.0;
                     var PPDL = worksheet.Cells[$"X{i}"].Value is not null ? worksheet.Cells[$"X{i}"].Value : 0.0;
                     var PPD = worksheet.Cells[$"Y{i}"].Value is not null ? worksheet.Cells[$"Y{i}"].Value : 0.0;
                     var IsGM = worksheet.Cells[$"AY{i}"].Value;
 
-                    //Пишем id промо в файл если соответствует условиям
+                    //Собираем строку id промо если соответствует условиям
                     if ((double)PC < 20.0 && (double)PPD > (double)PPDL && IsGM.Equals("yes"))
                     {
-                        sw.WriteLine(worksheet.Cells[$"A{i}"].Value);                       
-                    }                    
+                        sb.Append($"{worksheet.Cells[$"A{i}"].Value};");
+                    }
                 }
+
+                //Пишем строку с id промо в файл, разделитель ;
+                sw.Write(sb.ToString().TrimEnd(';'));
             }
         }
     }
