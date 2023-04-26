@@ -10,49 +10,34 @@ namespace ReadAllLinesConcatInOneStringAndSetDelimiter
     internal class ReadExcel
     {
         public static void GetDataFromExcel()
-        {
-            int count = 2;
-            int PC = 0;
-            int PPDL = 0;
-            int PPD = 0;
+        {           
 
-            string path = @"D:/Загрузки работа/data/Promo Approval Status_Q3.xlsx";
+            string path = @"D:/Загрузки работа/";
 
-            //Console.WriteLine($"Insert name of Excel with extension \n >>");
+            Console.WriteLine($"Insert name of Excel with extension \n >>");
 
-            //path = Path.Combine(path, Console.ReadLine()!);
+            path = Path.Combine(path, Console.ReadLine()!);
 
             using StreamWriter sw = new StreamWriter(@"D:/Загрузки работа/data/Текстовый документ.txt");
             FileInfo file = new FileInfo(path);
             using (ExcelPackage package = new ExcelPackage(file))
             {
                 ExcelWorksheet worksheet = package.Workbook.Worksheets.FirstOrDefault();
-                while (worksheet.Cells[$"A{count}"] is not null) {
+                int limiter = worksheet.Dimension.End.Row;
 
-
-                    //Чтение ячейки листа
-                    if(Int32.TryParse(worksheet.Cells[$"AV{count}"].Value.ToString(), out int PCvalue))
-                    {
-                        PC = PCvalue;
-                    }
-                    if (Int32.TryParse(worksheet.Cells[$"X{count}"].Value.ToString(), out int PPDLvalue))
-                    {
-                        PPDL = PPDLvalue;
-                    }
-                    if (Int32.TryParse(worksheet.Cells[$"Y{count}"].Value.ToString(), out int PPDvalue))
-                    {
-                        PPD = PPDvalue;
-                    }
-                    
-                    string IsGM = worksheet.Cells[$"AY{count}"].Value.ToString()!;
+                for (int i = 2; i < limiter; i++)
+                {
+                    var PC = worksheet.Cells[$"AV{i}"].Value is not null ? worksheet.Cells[$"AV{i}"].Value : 0.0;
+                    var PPDL = worksheet.Cells[$"X{i}"].Value is not null ? worksheet.Cells[$"X{i}"].Value : 0.0;
+                    var PPD = worksheet.Cells[$"Y{i}"].Value is not null ? worksheet.Cells[$"Y{i}"].Value : 0.0;
+                    var IsGM = worksheet.Cells[$"AY{i}"].Value;
 
                     //Пишем id промо в файл если соответствует условиям
-                    if (PC > 20 && PPD > PPDL && IsGM.Equals("yes"))
+                    if ((double)PC < 20.0 && (double)PPD > (double)PPDL && IsGM.Equals("yes"))
                     {
-                        sw.WriteLine(worksheet.Cells[$"A{count}"].Value);
-                    }
-                    count++;
-                }     
+                        sw.WriteLine(worksheet.Cells[$"A{i}"].Value);                       
+                    }                    
+                }
             }
         }
     }
