@@ -37,15 +37,13 @@ namespace ReadAllLinesConcatInOneStringAndSetDelimiter
                         double PC = (double?)worksheet.Cells[$"AV{i}"].Value ?? 0.0;
                         double PPDL = (double?)worksheet.Cells[$"X{i}"].Value ?? 0.0;
                         double PPD = (double?)worksheet.Cells[$"Y{i}"].Value ?? 0.0;
-                        //double PC = worksheet.Cells[$"AV{i}"].Value is not null ? (double)worksheet.Cells[$"AV{i}"].Value : 0.0;
-                        //double PPDL = worksheet.Cells[$"X{i}"].Value is not null ? (double)worksheet.Cells[$"X{i}"].Value : 0.0;
-                        //double PPD = worksheet.Cells[$"Y{i}"].Value is not null ? (double)worksheet.Cells[$"Y{i}"].Value : 0.0;
+
                         string IsGM = worksheet.Cells[$"AY{i}"].Value.ToString() ?? " ";
 
                         //Собираем строку id промо если соответствует условиям
                         if (PC >= 20.0 && PPD <= PPDL && IsGM.Equals("yes"))
                         {
-                            sb.Append($"{worksheet.Cells[$"A{i}"].Value}");
+                            sb.Append(worksheet.Cells[$"A{i}"].Value);
                             sb.Append(';');
                         }
                     }
