@@ -26,21 +26,34 @@ namespace ReadAllLinesConcatInOneStringAndSetDelimiter
             using (ExcelPackage package = new ExcelPackage(file))
             {
                 ExcelWorksheet worksheet = package.Workbook.Worksheets.FirstOrDefault();
-                int limiter = worksheet.Dimension.End.Row;
 
-                for (int i = 2; i < limiter; i++)
+                if (worksheet is not null)
                 {
-                    //Получаем значения, если для числового значения null меняем на 0
-                    var PC = worksheet.Cells[$"AV{i}"].Value is not null ? worksheet.Cells[$"AV{i}"].Value : 0.0;
-                    var PPDL = worksheet.Cells[$"X{i}"].Value is not null ? worksheet.Cells[$"X{i}"].Value : 0.0;
-                    var PPD = worksheet.Cells[$"Y{i}"].Value is not null ? worksheet.Cells[$"Y{i}"].Value : 0.0;
-                    var IsGM = worksheet.Cells[$"AY{i}"].Value;
-
-                    //Собираем строку id промо если соответствует условиям
-                    if ((double)PC >= 20.0 && (double)PPD <= (double)PPDL && IsGM.Equals("yes"))
+                    int limiter = worksheet.Dimension.End.Row;
+                    for (int i = 2; i < limiter; i++)
                     {
-                        sb.Append($"{worksheet.Cells[$"A{i}"].Value};");
+                        //Получаем значения, если для числового значения null меняем на 0
+
+                        double PC = (double?)worksheet.Cells[$"AV{i}"].Value ?? 0.0;
+                        double PPDL = (double?)worksheet.Cells[$"X{i}"].Value ?? 0.0;
+                        double PPD = (double?)worksheet.Cells[$"Y{i}"].Value ?? 0.0;
+                        //double PC = worksheet.Cells[$"AV{i}"].Value is not null ? (double)worksheet.Cells[$"AV{i}"].Value : 0.0;
+                        //double PPDL = worksheet.Cells[$"X{i}"].Value is not null ? (double)worksheet.Cells[$"X{i}"].Value : 0.0;
+                        //double PPD = worksheet.Cells[$"Y{i}"].Value is not null ? (double)worksheet.Cells[$"Y{i}"].Value : 0.0;
+                        string IsGM = worksheet.Cells[$"AY{i}"].Value.ToString() ?? " ";
+
+                        //Собираем строку id промо если соответствует условиям
+                        if (PC >= 20.0 && PPD <= PPDL && IsGM.Equals("yes"))
+                        {
+                            sb.Append($"{worksheet.Cells[$"A{i}"].Value}");
+                            sb.Append(';');
+                        }
                     }
+                }
+                else
+                {
+                    Console.WriteLine("No worksheets in file");
+                    return;
                 }
 
                 //Пишем строку с id промо в файл, разделитель ;
