@@ -1,6 +1,7 @@
 ﻿using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,12 +15,12 @@ namespace ReadAllLinesConcatInOneStringAndSetDelimiter
 
             string path = @"D:/Загрузки работа/";
 
-            Console.WriteLine($"Insert name of Excel with extension");
+            Console.WriteLine("Insert path to the Excel file with name and extension");
             Console.Write(">> ");
 
-            path = Path.Combine(path, Console.ReadLine()!);
-
-            using StreamWriter sw = new StreamWriter(@"D:/Загрузки работа/data/result.txt");
+            path = Path.Combine(path,Console.ReadLine());
+           
+            using StreamWriter sw = new StreamWriter(@"result.txt");
             StringBuilder sb = new StringBuilder();
             FileInfo file = new FileInfo(path);
 
@@ -43,8 +44,7 @@ namespace ReadAllLinesConcatInOneStringAndSetDelimiter
                         //Собираем строку id промо если соответствует условиям
                         if (PC >= 20.0 && PPD <= PPDL && IsGM.Equals("yes"))
                         {
-                            sb.Append(worksheet.Cells[$"A{i}"].Value);
-                            sb.Append(';');
+                            sb.Append(worksheet.Cells[$"A{i}"].Value).Append(';');
                         }
                     }
                 }
@@ -55,7 +55,7 @@ namespace ReadAllLinesConcatInOneStringAndSetDelimiter
                 }
 
                 //Пишем строку с id промо в файл, разделитель ;
-                sw.Write(sb.ToString().TrimEnd(';'));
+                sw.Write(sb.ToString().TrimEnd(';'));                
             }
         }
     }

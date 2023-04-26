@@ -1,6 +1,8 @@
 ﻿using ReadAllLinesConcatInOneStringAndSetDelimiter;
-using System.Text;
+using System.Diagnostics;
+
 
 
 ReadExcel.GetDataFromExcel();
-//SetSeparator.SetSeparatorForDataFromTxt();
+Process.Start(new ProcessStartInfo {FileName = @"result.txt", UseShellExecute = true });
+
