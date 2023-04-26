@@ -15,7 +15,7 @@ namespace ReadAllLinesConcatInOneStringAndSetDelimiter
             string path = @"D:/Загрузки работа/";
 
             Console.WriteLine($"Insert name of Excel with extension");
-            Console.Write(">>");
+            Console.Write(">> ");
 
             path = Path.Combine(path, Console.ReadLine()!);
 
@@ -37,7 +37,7 @@ namespace ReadAllLinesConcatInOneStringAndSetDelimiter
                     var IsGM = worksheet.Cells[$"AY{i}"].Value;
 
                     //Собираем строку id промо если соответствует условиям
-                    if ((double)PC < 20.0 && (double)PPD > (double)PPDL && IsGM.Equals("yes"))
+                    if ((double)PC >= 20.0 && (double)PPD <= (double)PPDL && IsGM.Equals("yes"))
                     {
                         sb.Append($"{worksheet.Cells[$"A{i}"].Value};");
                     }
