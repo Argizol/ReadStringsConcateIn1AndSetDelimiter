@@ -14,7 +14,8 @@ namespace ReadAllLinesConcatInOneStringAndSetDelimiter
 
             string path = @"D:/Загрузки работа/";
 
-            Console.WriteLine($"Insert name of Excel with extension \n >>");
+            Console.WriteLine($"Insert name of Excel with extension");
+            Console.Write(">>");
 
             path = Path.Combine(path, Console.ReadLine()!);
 
