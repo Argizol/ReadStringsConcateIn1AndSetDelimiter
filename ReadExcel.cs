@@ -13,10 +13,6 @@ namespace ReadAllLinesConcatInOneStringAndSetDelimiter
         public static void GetDataFromExcel()
         {
 
-            //string path = @"D:/Загрузки работа/";
-
-            //Console.WriteLine("Insert path to the Excel file with name and extension");
-            //Console.Write(">> ");
             string path = string.Empty;
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
