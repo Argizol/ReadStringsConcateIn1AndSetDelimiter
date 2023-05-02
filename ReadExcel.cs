@@ -9,7 +9,7 @@ namespace ReadAllLinesConcatInOneStringAndSetDelimiter
    
     internal class ReadExcel
     {
-        [STAThread] // <--  это оно  
+         
         public static void GetDataFromExcel()
         {
 
@@ -28,9 +28,6 @@ namespace ReadAllLinesConcatInOneStringAndSetDelimiter
                     
                 }
             }
-
-
-            //path = Path.Combine(path,Console.ReadLine());
 
             using StreamWriter sw = new StreamWriter(@"result.txt");
             StringBuilder sb = new StringBuilder();
