@@ -1,25 +1,41 @@
 ﻿using OfficeOpenXml;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.IO;
+
+
 
 namespace ReadAllLinesConcatInOneStringAndSetDelimiter
 {
+   
     internal class ReadExcel
     {
+        [STAThread] // <--  это оно  
         public static void GetDataFromExcel()
         {
 
-            string path = @"D:/Загрузки работа/";
+            //string path = @"D:/Загрузки работа/";
 
-            Console.WriteLine("Insert path to the Excel file with name and extension");
-            Console.Write(">> ");
+            //Console.WriteLine("Insert path to the Excel file with name and extension");
+            //Console.Write(">> ");
+            string path = string.Empty;
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.InitialDirectory = @"c:\";
+                openFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+                openFileDialog.FilterIndex = 2;
+                openFileDialog.RestoreDirectory = true;
 
-            path = Path.Combine(path,Console.ReadLine());
-           
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    //Get the path of specified file
+                    path = openFileDialog.FileName;
+                    
+                }
+            }
+
+
+            //path = Path.Combine(path,Console.ReadLine());
+
             using StreamWriter sw = new StreamWriter(@"result.txt");
             StringBuilder sb = new StringBuilder();
             FileInfo file = new FileInfo(path);
@@ -55,7 +71,7 @@ namespace ReadAllLinesConcatInOneStringAndSetDelimiter
                 }
 
                 //Пишем строку с id промо в файл, разделитель ;
-                sw.Write(sb.ToString().TrimEnd(';'));                
+                sw.Write(sb.ToString().TrimEnd(';'));
             }
         }
     }

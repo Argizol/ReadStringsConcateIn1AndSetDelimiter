@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
+using System.IO;
 
 namespace ReadAllLinesConcatInOneStringAndSetDelimiter
 {
     internal class SetSeparator
     {
-        public static void SetSeparatorForDataFromTxt() {
+        public static void SetSeparatorForDataFromTxt()
+        {
             string path = @"D:/Загрузки работа/data/Текстовый документ.txt";
             using StreamReader sr = new StreamReader(path);
             using StreamWriter sw = new StreamWriter(@"D:/Загрузки работа/data/result.txt");

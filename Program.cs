@@ -3,6 +3,12 @@ using System.Diagnostics;
 
 
 
-ReadExcel.GetDataFromExcel();
-Process.Start(new ProcessStartInfo {FileName = @"result.txt", UseShellExecute = true });
-
+internal class Program
+{
+    [STAThread] 
+    private static void Main(string[] args)
+    {
+        ReadExcel.GetDataFromExcel();
+        Process.Start(new ProcessStartInfo { FileName = @"result.txt", UseShellExecute = true });
+    }
+}
