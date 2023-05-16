@@ -48,14 +48,14 @@ namespace ReadAllLinesConcatInOneStringAndSetDelimiter
                 {
                     //Получаем значения, если для числового значения null меняем на 0
 
-                    double PC = (double?)worksheet.Cells[$"AV{i}"].Value ?? 0.0;
+                    double PC = (double?)worksheet.Cells[$"AW{i}"].Value ?? 0.0;
                     double PPDL = (double?)worksheet.Cells[$"X{i}"].Value ?? 0.0;
                     double PPD = (double?)worksheet.Cells[$"Y{i}"].Value ?? 0.0;
 
-                    string IsGM = worksheet.Cells[$"AY{i}"].Value.ToString() ?? " ";
+                    var IsGM = (string)worksheet.Cells[$"AZ{i}"].Value;
 
                     //Собираем строку id промо если соответствует условиям
-                    if ((PC >= 20.0 || PPD <= PPDL) && IsGM.Equals("yes"))
+                    if ((PC >= 20.0 && PPD <= PPDL) && IsGM.Equals("yes"))
                     {
                         sb.Append(worksheet.Cells[$"A{i}"].Value).Append(';');
                     }
