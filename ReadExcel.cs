@@ -9,7 +9,7 @@ namespace ReadAllLinesConcatInOneStringAndSetDelimiter
 
     internal class ReadExcel
     {
-
+        //для первого коммита
         public static void GetDataFromExcel()
         {
 
