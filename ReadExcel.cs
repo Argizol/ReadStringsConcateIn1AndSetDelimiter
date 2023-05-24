@@ -10,7 +10,6 @@ namespace ReadAllLinesConcatInOneStringAndSetDelimiter
     internal class ReadExcel
     {
         //для первого коммита
-        //2 коммит
         public static void GetDataFromExcel()
         {
 
