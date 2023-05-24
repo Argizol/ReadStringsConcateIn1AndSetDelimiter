@@ -11,7 +11,6 @@ namespace ReadAllLinesConcatInOneStringAndSetDelimiter
     {
         //для первого коммита
         //2 коммит
-        //3 комм
         public static void GetDataFromExcel()
         {
 
